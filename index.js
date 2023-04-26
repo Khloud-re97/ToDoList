@@ -171,7 +171,8 @@ app.get("/about", function(req, res) {
   res.render("about");
 });
 
-connectDB().then(app.listen(PORT, function() {
-  console.log("Server started on port 3000");
+connectDB().then(() => {
+    app.listen(PORT, () => {
+        console.log("listening for requests");
+    })
 })
-);
