@@ -15,7 +15,7 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(express.static("public"));
 const PORT = process.env.PORT || 3000;
-
+mongoose.set("strictQuery", false);
 const connectDB = async () => {
   try {
     const conn = await mongoose.connect(process.env.MONGO_URI);
@@ -26,7 +26,7 @@ const connectDB = async () => {
   }
 }
 
-mongoose.set("strictQuery", false);
+
 
 const itemsSchema = new mongoose.Schema({
   name: String
