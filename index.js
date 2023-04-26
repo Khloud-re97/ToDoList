@@ -163,8 +163,7 @@ app.get("/about", function(req, res) {
   res.render("about");
 });
 
-(mongoose.connect("mongodb+srv://admin-khloud:Test123@cluster0.vc5qxgm.mongodb.net/todolistDB")
-).then(app.listen(PORT, function() {
+mongoose.connect(process.env.MONGO_URL).then(app.listen(PORT, function() {
   console.log("Server started on port 3000");
 })
 );
