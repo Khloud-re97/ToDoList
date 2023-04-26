@@ -16,9 +16,17 @@ app.use(bodyParser.urlencoded({
 app.use(express.static("public"));
 const PORT = process.env.PORT || 3000;
 
-mongoose.set("strictQuery", false);
+const connectDB = async () => {
+  try {
+    const conn = await mongoose.connect(process.env.MONGO_URI);
+    console.log(`MongoDB Connected: ${conn.connection.host}`);
+  } catch (error) {
+    console.log(error);
+    process.exit(1);
+  }
+}
 
-mongoose.connect("mongodb+srv://admin-khloud:Test123@cluster0.vc5qxgm.mongodb.net/todolistDB");
+mongoose.set("strictQuery", false);
 
 const itemsSchema = new mongoose.Schema({
   name: String
@@ -163,7 +171,7 @@ app.get("/about", function(req, res) {
   res.render("about");
 });
 
-mongoose.connect(process.env.MONGO_URL).then(app.listen(PORT, function() {
+connectDB().then(app.listen(PORT, function() {
   console.log("Server started on port 3000");
 })
 );
